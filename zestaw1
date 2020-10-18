@@ -1,0 +1,148 @@
+# Zestaw zadan 2.
+# Albert Surmacz
+# 18.10.2020
+
+# Mamy dany napis wielowierszowy line. Podać sposób obliczenia liczby wyrazów w napisie.
+# Przez wyraz rozumiemy ciąg "czarnych" znaków, oddzielony od innych wyrazów białymi znakami (spacja, tabulacja, newline).
+def zad_2_10():
+    print("ZADANIE 2.10")
+    line = '''"Mamy dany napis wielowierszowy line
+           Podac sposob obliczenia liczby wyrazow w napisie."'''
+    # print(line)
+    words = line.split()
+    # print(words)
+    result = len(words)
+    print("Liczba wyrazow w napisie: " + line + " wynosi: " + str(result))
+
+
+# Podać sposób wyświetlania napisu word tak, aby jego znaki były rozdzielone znakiem podkreślenia.
+def zad_2_11():
+    print("\nZADANIE 2.11")
+    word = "Podac sposob wyswietlania napisu word tak, aby jego znaki byly rozdzielone znakiem podkreslenia"
+    listOfChars = []
+    for char in word:
+        listOfChars.append(char)
+        listOfChars.append("_")
+    # print(listOfChars)
+    listOfChars.pop()  # Podkreslenia mialy rozdzielac znaki, wiec usuwam podkreslenie, ktore bylo za ostatnim znakiem
+    result = "".join(listOfChars)
+    print(result)
+
+
+# Zbudować napis stworzony z pierwszych znaków wyrazów z wiersza line. Zbudować napis stworzony z ostatnich znaków wyrazów z wiersza line.
+def zad_2_12():
+    print("\nZADANIE 2.12")
+    line = "Zbudowac napis stworzony z pierwszych znakow wyrazow z wiersza line."
+    words = line.split()
+    # print(words)
+    result = ""
+    for word in words:
+        result += word[0]
+    print("Napis z pierwszych znakow wiersza: \"" + line + "\" to: " + result)
+
+    line2 = "Zbudowac napis stworzony z ostatnich znakow wyrazow z wiersza line."
+    words = line2.split()
+    result2 = ""
+    for word in words:
+        result2 += word[-1]
+    print("Napis z ostatnich znakow wiersza: \"" + line2 + "\" to: " + result2)
+
+
+# Znaleźć łączną długość wyrazów w napisie line. Wskazówka: można skorzystać z funkcji sum()
+def zad_2_13():
+    print("\nZADANIE 2.13")
+    line = "Znalezc laczna dlugosc wyrazow w napisie line. Wskazowka: mozna skorzystac z funkcji sum()"
+    # print(len(line)) #90 whitespaces included
+    result = len(line.replace(" ", ""))
+    print("Laczna dlugosc wyrazow w napisie: \"" + line + "\" wynosi: " + str(result))
+
+
+# Znaleźć: (a) najdłuższy wyraz, (b) długość najdłuższego wyrazu w napisie line.
+def zad_2_14():
+    print("\nZADANIE 2.14")
+    line = "Znalezc: (a) najdluzszy wyraz, (b) długosc najdluzszego wyrazu w napisie line."
+    words = line.split()
+    # print(words)
+    longestWord = ""
+    maxsize = 0
+    for word in words:
+        if (len(word) > maxsize):
+            maxsize = len(word)
+            longestWord = word
+    print("Najdluzsze slowo w: \"" + line + "\" to: \"" + longestWord + "\" a jego rozmiar wynosi: " + str(maxsize))
+
+
+# Na liście L znajdują się liczby całkowite dodatnie. Stworzyć napis będący ciągiem cyfr kolejnych liczb z listy L.
+def zad_2_15():
+    print("\nZADANIE 2.15")
+    L = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    line = ""
+    for number in L:
+        line += str(number)
+    print("Napis powstaly z listy: " + str(L) + " to: " + line)
+
+
+# W tekście znajdującym się w zmiennej line zamienić ciąg znaków "GvR" na "Guido van Rossum".
+def zad_2_16():
+    print("\nZADANIE 2.16")
+    line = 'W tekscie znajdujacym sie w zmiennej line zamienic ciag znakow "GvR" na "Guido van Rossum'
+    result = line.replace("GvR", "Guido van Rossum")
+    print("Przed: " + line)
+    print("   Po: " + result)
+
+
+# Posortować wyrazy z napisu line raz alfabetycznie, a raz pod względem długości. Wskazówka: funkcja wbudowana sorted().
+def zad_2_17():
+    print("\nZADANIE 2.17")
+    line = "Posortowac wyrazy z napisu line raz alfabetycznie, a raz pod wzgledem dlugosci. Wskazowka: funkcja wbudowana sorted()"
+    words = line.split()
+
+    print("Niesortowane:")
+    print(words)
+
+    print("Alfabetycznie:")
+    words.sort(key=str.lower)
+    print(words)
+
+    print("Pod wzgledem dlugosci:")
+    words.sort(key=len)
+    print(words)
+
+
+# Znaleźć liczbę cyfr zero w dużej liczbie całkowitej. Wskazówka: zamienić liczbę na napis.
+def zad_2_18():
+    print("\nZADANIE 2.18")
+    number = 2 ** 200
+    # print(number)
+    result = str(number).count('0')
+    print("Liczba znalezionych zer w liczbie: " + str(number) + " wynosi: " + str(result))
+
+
+# Na liście L mamy liczby jedno-, dwu- i trzycyfrowe dodatnie. Chcemy zbudować napis z trzycyfrowych bloków,
+# gdzie liczby jedno- i dwucyfrowe będą miały blok dopełniony zerami, np. 007, 024. Wskazówka: str.zfill().
+def zad_2_19():
+    print("\nZADANIE 2.19")
+    L = [1, 20, 300, 4, 50, 600, 7, 80, 900]
+    line = ""
+    for number in L:
+        line += str(number).zfill(3)
+        line += " "
+    # print(line)
+    print("Napis otrzymany z listy: " + str(L) + " to: " + line)
+
+
+def main():
+    zad_2_10()
+    zad_2_11()
+    zad_2_12()
+    zad_2_13()
+    zad_2_14()
+    zad_2_15()
+    zad_2_16()
+    zad_2_17()
+    zad_2_18()
+    zad_2_19()
+
+
+if __name__ == "__main__":
+    main()
