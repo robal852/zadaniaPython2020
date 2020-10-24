@@ -29,7 +29,7 @@ def zad_2_11():
     print(result)
 
 
-# Zbudować napis stworzony z pierwszych znaków wyrazów z wiersza line. Zbudować napis stworzony z ostatnich znaków wyrazów z wiersza line.
+# Zbudować napis stworzony z pierwslinezych znaków wyrazów z wiersza line. Zbudować napis stworzony z ostatnich znaków wyrazów z wiersza line.
 def zad_2_12():
     print("\nZADANIE 2.12")
     line = "Zbudowac napis stworzony z pierwszych znakow wyrazow z wiersza line."
