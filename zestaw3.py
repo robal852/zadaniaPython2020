@@ -172,7 +172,7 @@ print(listaWynik)
 # Zadanie 3.10
 print("\n\nZadanie 3.10")
 
-dict = {
+dict1 = {
     "I": 1,
     "V": 5,
     "X": 10,
@@ -182,7 +182,27 @@ dict = {
     "M": 1000,
     " ": 0
 }
+dict2 = dict(I=1,
+             V=5,
+             X=10,
+             L=50,
+             C=100,
+             D=500,
+             M=1000)
 
+data = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
+dict3 = dict.fromkeys(data, 1)
+dict3['V'] = 5
+dict3['X'] = 10
+dict3['L'] = 50
+dict3['C'] = 100
+dict3['D'] = 500
+dict3['M'] = 1000
+
+print(dict1)
+print(dict2)
+print(dict3)
+print()
 import re
 
 
@@ -201,11 +221,11 @@ def roman2int(roman):
         if skipOneLoop:
             skipOneLoop = False
             continue
-        if (dict.get(roman[i + 1]) <= dict.get(roman[i])):
-            caffeArabica += dict.get(roman[i])
+        if (dict1.get(roman[i + 1]) <= dict1.get(roman[i])):
+            caffeArabica += dict1.get(roman[i])
         else:
-            caffeArabica += dict.get(roman[i + 1])
-            caffeArabica -= dict.get(roman[i])
+            caffeArabica += dict1.get(roman[i + 1])
+            caffeArabica -= dict1.get(roman[i])
             skipOneLoop = True
     return caffeArabica
 
