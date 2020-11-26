@@ -1,4 +1,4 @@
-from zestaw5.fracs import *
+from Zestawy_Zaliczone.zestaw5.fracs import *
 
 import unittest
 

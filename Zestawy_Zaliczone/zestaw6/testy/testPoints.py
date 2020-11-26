@@ -1,4 +1,4 @@
-from zestaw6.points import Point
+from Zestawy_Zaliczone.zestaw6.points import Point
 import unittest
 
 

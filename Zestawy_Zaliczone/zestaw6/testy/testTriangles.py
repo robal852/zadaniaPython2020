@@ -1,5 +1,5 @@
-from zestaw6.triangles import Triangle
-from zestaw6.points import Point
+from Zestawy_Zaliczone.zestaw6.triangles import Triangle
+from Zestawy_Zaliczone.zestaw6.points import Point
 import unittest
 
 
