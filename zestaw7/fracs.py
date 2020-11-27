@@ -47,7 +47,7 @@ class Frac:
             else:
                 return False
         else:
-            raise ValueError
+            raise ValueError(type(other))
 
     def __ne__(self, other):
         return not self == other
@@ -94,7 +94,7 @@ class Frac:
             nominator = self.x * otherY - self.y * otherX
             denominator = self.y * otherY
         else:
-            raise ValueError
+            raise ValueError(type(other))
         gcd = math.gcd(nominator, denominator)
         return Frac(nominator / gcd, denominator / gcd)
 
@@ -111,7 +111,7 @@ class Frac:
             nominator = self.x * other
             denominator = self.y
         else:
-            raise ValueError
+            raise ValueError(type(other))
         gcd = math.gcd(nominator, denominator)
         return Frac(nominator / gcd, denominator / gcd)
 
@@ -136,17 +136,19 @@ class Frac:
             nominator = self.x
             denominator = self.y * other
         else:
-            raise ValueError
+            raise ValueError(type(other))
         gcd = math.gcd(nominator, denominator)
         return Frac(nominator / gcd, denominator / gcd)
 
     def __rtruediv__(self, other):
         ''' int/frac, Python 3 '''
-        if isinstance(other, Frac):
-            nominator = self * other.y
-            denominator = other.x
+        if isinstance(other, int):
+            nominator = self.y * other
+            denominator = self.x
             gcd = math.gcd(nominator, denominator)
             return Frac(nominator / gcd, denominator / gcd)
+        else:
+            raise ValueError(type(other), type(self))
 
     # operatory jednoargumentowe
     def __pos__(self):

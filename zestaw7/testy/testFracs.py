@@ -90,6 +90,26 @@ class TestFrac(unittest.TestCase):
         except Exception as ex:
             self.assertEqual(ValueError, ex.__class__)
         self.assertEqual(self.one, self.f12 / self.f12)
+        self.assertEqual(self.one, self.one / 1)
+
+    def test__rtruediv__(self):
+        self.assertEqual(self.one, self.one.__rtruediv__(1))
+        self.assertEqual(self.f4, 2 / self.f12)
+
+    def test__pos__(self):
+        self.assertEqual(self.f12, +self.f12)
+
+    def test__neg__(self):
+        self.assertEqual(Frac(-1, 2), -self.f12)
+
+    def test__invert__(self):
+        self.assertEqual(Frac(2, 1), self.f12.__invert__())
+
+    def test__float__(self):
+        self.assertEqual(0.5, self.f12.__float__())
+
+    def test__hash__(self):
+        self.assertEqual(hash(0.5), self.f12.__hash__())
 
     def tearDown(self):
         pass
