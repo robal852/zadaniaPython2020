@@ -1,6 +1,6 @@
 # Program do wyznaczania liczby π
+
 import math
-from random import seed
 from random import random
 
 
