@@ -40,14 +40,16 @@ class Frac:
         if isinstance(other, Frac):
             if self.x == other.x and self.y == other.y:
                 return True
-            return False
         elif isinstance(other, int):
             if self.x == other and self.y == 1:
                 return True
-            else:
-                return False
+        elif isinstance(other, float):
+            otherX, otherY = other.as_integer_ratio()
+            if self.x == otherX and self.y == otherY:
+                return True
         else:
             raise ValueError(type(other))
+        return False
 
     def __ne__(self, other):
         return not self == other
@@ -100,7 +102,16 @@ class Frac:
 
     def __rsub__(self, other):  # int-frac
         ''' tutaj self jest frac, a other jest int! '''
-        return Frac(self.y * other - self.x, self.y)
+        if isinstance(other, int):
+            return Frac(self.y * other - self.x, self.y)
+        elif isinstance(other, float):
+            otherX, otherY = other.as_integer_ratio()
+            nominator = otherX * self.y - otherY * self.x
+            denominator = otherY * self.y
+            gcd = math.gcd(nominator, denominator)
+            return Frac(nominator / gcd, denominator / gcd)
+        else:
+            raise ValueError(type(other))
 
     def __mul__(self, other):
         ''' frac1*frac2, frac*int '''

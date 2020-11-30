@@ -38,6 +38,7 @@ class TestFrac(unittest.TestCase):
     def test__eq__(self):
         self.assertFalse(self.zero == self.f12)
         self.assertTrue(self.f4 == self.f2)
+        self.assertTrue(self.f12 == 0.5)
 
     def test__ne__(self):
         self.assertTrue(self.zero != self.f12)
@@ -71,6 +72,8 @@ class TestFrac(unittest.TestCase):
     def test__rsub__(self):
         self.assertEqual(self.one, 1 - self.zero)
         self.assertEqual(self.zero, 1 - self.one)
+        self.assertEqual(self.zero, 0.5 - self.f12)
+        self.assertEqual(self.one, 1.5 - self.f12)
 
     def test__mul__(self):
         self.assertEqual(self.zero, self.f12 * self.zero)

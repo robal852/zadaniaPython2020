@@ -10,6 +10,7 @@ class TestTriangle(unittest.TestCase):
         self.t1 = Triangle(0, 0, 2, 0, 0, 2)
         self.t2 = Triangle(2, 2, 2, 0, 0, 2)
         self.t3 = Triangle(0, 3, 1, 0, 2, 3)
+        self.t4 = Triangle(2, 3, 0, 3, 1, 0)
         self.t3center = Point(1, 2)
         self.t3mv = Triangle(1, 4, 2, 1, 3, 4)
 
@@ -17,6 +18,11 @@ class TestTriangle(unittest.TestCase):
         self.assertIsInstance(self.t1, Triangle)
         try:
             Triangle(1, 1, 2, 1, 3, 1)
+        except Exception as ex:
+            self.assertEqual(ValueError, ex.__class__)
+
+        try:
+            Triangle(0, 0, 1, 0, 2, 0)
         except Exception as ex:
             self.assertEqual(ValueError, ex.__class__)
 
@@ -34,6 +40,7 @@ class TestTriangle(unittest.TestCase):
     def test__eq__(self):
         self.assertFalse(self.t1 == self.t2)
         self.assertTrue(self.t1 == self.t1)
+        self.assertTrue(self.t3 == self.t4)
 
     def test__ne__(self):
         self.assertTrue(self.t1 != self.t2)
@@ -51,10 +58,8 @@ class TestTriangle(unittest.TestCase):
         self.assertEqual(self.t3, self.t3mv.move(-1, -1))
 
     def testmake4(self):
-        self.assertEqual(
-            [Triangle(0, 0, 0, 1, 3.99999998, 0), Triangle(1, 1, 1, 2, 4.99999998, 1),
-             Triangle(2, 2, 2, 3, 5.99999998, 2), Triangle(3, 3, 3, 4, 6.99999998, 3)],
-            self.t1.make4())
+        self.assertEqual([Triangle(1.0, 0.0, 0.0, 1.0, 1.0, 1.0), Triangle(0, 0, 1.0, 0.0, 0.0, 1.0),
+                          Triangle(2, 0, 1.0, 0.0, 1.0, 1.0), Triangle(0, 2, 0.0, 1.0, 1.0, 1.0)], self.t1.make4() )
 
-    def tearDown(self):
-        pass
+        def tearDown(self):
+            pass
