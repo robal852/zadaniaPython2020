@@ -1,4 +1,4 @@
-from zestaw7.fracs import Frac
+from Zestawy_Zaliczone.zestaw7.fracs import Frac
 import unittest
 
 

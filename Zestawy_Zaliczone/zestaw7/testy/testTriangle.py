@@ -1,7 +1,7 @@
 import unittest
 
 from Zestawy_Zaliczone.zestaw6.points import Point
-from zestaw7.triangles import Triangle
+from Zestawy_Zaliczone.zestaw7.triangles import Triangle
 
 
 class TestTriangle(unittest.TestCase):
