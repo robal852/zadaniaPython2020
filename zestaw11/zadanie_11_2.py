@@ -1,4 +1,19 @@
+# INSTRUKCJA
+# Pracuję z Ubuntu i najpierw uruchamiam "podgladSortowania" w podstawowej aplikacji "Obrazy"
+# następnie uruchamiam skrypt z sortowaniem
+# W czasie działania skryptu zmienia sie obrazek i widzę co dziee się na liście.
+# Jeśli, nie zdąży się wczytywać nowy obrazek, można powiekszyc zmienna delay
+
+# Mozna też odkomentować linijke     #os.system("display podgladSortowania"),
+# wtedy widzimy kazdy krok przez ile chcemy czasu, a następny dopiero po zamknięciu okna z wczesniejszym
+
+
+import os
+import time
+
 from zestaw11.listy import *
+
+delay = 0.42
 
 
 def swap(L, left, right):
@@ -29,17 +44,22 @@ def shakersort(L, left, right):
 def zapiszDoPliku(L, filename="sort1.dat"):
     f = open(filename, "w")
     for i in range(len(L)):
-        f.write(str(i)+" "+ str(L[i])+"\n")
+        f.write(str(i) + " " + str(L[i]) + "\n")
     f.close()
+    os.system("gnuplot podglad.gp")
+    # os.system("display podgladSortowania")
+    time.sleep(delay)
 
 
-size = 1000
+size = 16
 l1 = intLosowe(size)
 l2 = intLosowePrawwiePosortowane(size)
 l3 = intOdwrotnaKolejnosc(size)
 l4 = floatGaussa(size)
 l5 = int_z_powtorzeniami(size)
 
-
-
-zapiszDoPliku(l1)
+shakersort(l1, 0, size - 1)
+shakersort(l2, 0, size - 1)
+shakersort(l3, 0, size - 1)
+shakersort(l4, 0, size - 1)
+shakersort(l5, 0, size - 1)
