@@ -38,17 +38,19 @@ def int_z_powtorzeniami(size):
     l = np.random.choice(size, size, replace=True)
     return l
 
-print("a")
-print(intLosowe(15))
 
-print("b)")
-print(intLosowePrawwiePosortowane(16))
+if __name__ == "__main__":
+    print("a")
+    print(intLosowe(15))
 
-print("c)")
-print(intOdwrotnaKolejnosc(15))
+    print("b)")
+    print(intLosowePrawwiePosortowane(16))
 
-print("d)")
-print(floatGaussa(10))
+    print("c)")
+    print(intOdwrotnaKolejnosc(15))
 
-print("e)")
-print(int_z_powtorzeniami(11))
+    print("d)")
+    print(floatGaussa(10))
+
+    print("e)")
+    print(int_z_powtorzeniami(11))
