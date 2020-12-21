@@ -2,7 +2,6 @@
 # Zmodyfikować program tak, aby znajdował wszystkie rozwiązania problemu hetmanów na szachownicy
 
 # Problem ośmiu hetmanów.
-# Znajdowanie jednego rozwiązania.
 # Wiersze i kolumny mają zakres od 0 do N-1.
 
 def rysuj():
@@ -24,6 +23,7 @@ def wymaz(w, k):
     b[w+k] = True
     c[w-k] = True
 
+# Znajdowanie jednego rozwiązania.
 # def probuj(k):
 #     udany = False
 #     w = 0                 # numery od 0 do N-1
@@ -74,4 +74,94 @@ else:
     print ( "Nie istnieje rozwiązanie" )
 # Problem ośmiu hetmanów.
 # Znajdowanie wszystkich rozwiązań.
+
+
+# przyklad: dla szachownicy 4x4 mamy dwa rozwiazania
+#
+# . . H .
+# H . . .
+# . . . H
+# . H . .
+#
+# . H . .
+# . . . H
+# H . . .
+# . . H .
+
+
+# natomiast dla szachownicy 5x5 jest to juz 10 rozwiazan, ale jesli uznamy ze mozemy dowolnie obracac szachownice sa to tak na prawde 3 rozwiazania
+# takie jak pierwsze i drugie gdzie pozostale to te rozwiazania obrocone w inna strone                   (2x4 rozwiazan)
+# oraz czwarte rozwiazanie ale tu obrót szachownicy nie zmienia miejsc zajetych przez hetmany            (1 rozwiazanie)
+# rozwiazanie 7. jest lustrzanym odbiciem rozwiazania nr 4                                               (1 rozwiazanie)
+
+#1.
+# H . . . .
+# . . . H .
+# . H . . .
+# . . . . H
+# . . H . .
+#
+#2.
+# H . . . .
+# . . H . .
+# . . . . H
+# . H . . .
+# . . . H .
+#
+#3.
+# . . H . .
+# H . . . .
+# . . . H .
+# . H . . .
+# . . . . H
+#
+#4.
+# . . . H .
+# H . . . .
+# . . H . .
+# . . . . H
+# . H . . .
+#
+#5.
+# . H . . .
+# . . . H .
+# H . . . .
+# . . H . .
+# . . . . H
+#
+#6.
+# . . . . H
+# . . H . .
+# H . . . .
+# . . . H .
+# . H . . .
+#
+#7.
+# . H . . .
+# . . . . H
+# . . H . .
+# H . . . .
+# . . . H .
+#
+#8.
+# . . . . H
+# . H . . .
+# . . . H .
+# H . . . .
+# . . H . .
+#
+#9.
+# . . . H .
+# . H . . .
+# . . . . H
+# . . H . .
+# H . . . .
+#
+#10.
+# . . H . .
+# . . . . H
+# . H . . .
+# . . . H .
+# H . . . .
+
 
