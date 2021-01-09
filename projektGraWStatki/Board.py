@@ -83,6 +83,7 @@ class Board:
         direction = -1
         if size == 1:
             direction = 2
+        self.printBoard()
         print("Ustawiasz", dir2.get(size))
         if size > 1:
             print("Najpierw zdecyduj czy statek ma byc pionowo czy poziomo.")
@@ -95,22 +96,16 @@ class Board:
 
         isShipAdded = False
         while not isShipAdded:
-            print(
-                "Teraz podaj pierwsza wspolrzedna swojego statku.(np.: B7 lub b7) \n Pamietaj ze litery od a do j, a indeksy od 0 do 9")
+            print("Teraz podaj pierwsza wspolrzedna swojego statku.(LiteraCyfra np. A0) "
+                  "\n Pamietaj ze statki nie moga sie stykac!")
             XY = ""
             X, Y = -1, -1
             while X == -1 or Y == -1:
-                X, Y = -1, -1
-                XY = input("Podaj wspolrzedna ")
-                if len(XY) >= 2:
-                    if ord(XY[0]) > 64 and ord(XY[0]) < 75:
-                        X = ord(XY[0]) - 65
-                    if ord(XY[0]) > 96 and ord(XY[0]) < 107:
-                        X = ord(XY[0]) - 97
-                    if ord(XY[1]) > 47 and ord(XY[1]) < 58:
-                        Y = ord(XY[1]) - 48
-                # print("X ", X)
-                # print("Y ", Y)
+                XY = self.getCoordinates()
+                X = XY[0]
+                Y = XY[1]
+            # print("X ", X)
+            # print("Y ", Y)
             correct = True
             if direction == 1:
                 for i in range(0, size):
@@ -133,7 +128,24 @@ class Board:
                 elif direction == 2:  # jednomasztowiec
                     self.gameBoard[X][Y] = 1
                 isShipAdded = True
-        self.printBoard()
+
+    def getCoordinates(self):
+        correct = False
+        XY = ""
+        X, Y = -1, -1
+        while not correct:
+            X, Y = -1, -1
+            XY = input("Podaj wspolrzedna ")
+            if len(XY) >= 2:
+                if ord(XY[0]) > 64 and ord(XY[0]) < 75:
+                    X = ord(XY[0]) - 65
+                if ord(XY[0]) > 96 and ord(XY[0]) < 107:
+                    X = ord(XY[0]) - 97
+                if ord(XY[1]) > 47 and ord(XY[1]) < 58:
+                    Y = ord(XY[1]) - 48
+            if X != -1 and Y != -1:
+                correct = True
+        return [X, Y]
 
     def isFieldAvailable(self, x, y):
         ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na statek '''
