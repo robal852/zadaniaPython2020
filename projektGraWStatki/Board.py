@@ -17,7 +17,16 @@ class Board:
 
     def setBoardManually(self):
         ''' Ustawianie statków na planszy '''
-        pass
+        self.addShipManually(size=4)
+        self.addShipManually(size=3)
+        self.addShipManually(size=3)
+        self.addShipManually(size=2)
+        self.addShipManually(size=2)
+        self.addShipManually(size=2)
+        self.addShipManually(size=1)
+        self.addShipManually(size=1)
+        self.addShipManually(size=1)
+        self.addShipManually(size=1)
 
     def setBoardAuto(self):
         ''' Ustawianie automatyczne dla komputera lub dla leniwego '''
@@ -33,9 +42,11 @@ class Board:
         self.addShip(size=1)
 
     def addShip(self, size):
+        ''' Metodą brute force losuje gdzie upchnąć statek,
+         size - dlugosc statku '''
         while True:
             correct = True
-            direction = random.randint(0, 1)  # 0 poziom, 1 pion
+            direction = random.randint(0, 1)  # 1 poziom, 0 pion
             x = random.randint(0, 9)
             y = random.randint(0, 9)
             if direction == 0:
@@ -46,7 +57,7 @@ class Board:
                 for i in range(0, size):
                     if (self.isFieldAvailable(x, y + i) == False):
                         correct = False
-            if(correct):# przeszlo wiec dodaje statek
+            if (correct):  # przeszlo wiec dodaje statek
                 if direction == 0:
                     for i in range(0, size):
                         self.gameBoard[x + i][y] = 1
@@ -54,8 +65,75 @@ class Board:
                     for i in range(0, size):
                         self.gameBoard[x][y + i] = 1
                 break  # koniec nieskonczonej petli
-        # self.printBoard()
-        # print(" ")
+
+    def addShipManually(self, size):
+        '''ręczne ustawianie statków na planszy,
+         size - dlugosc statku '''
+        dir = {
+            0: "poziom",
+            1: "pion",
+            2: "jednomasztowiec"
+        }
+        dir2 = {
+            1: "jednomasztowiec",
+            2: "dwumasztowiec",
+            3: "trzymasztowiec",
+            4: "czteromasztowiec",
+        }
+        direction = -1
+        if size == 1:
+            direction = 2
+        print("Ustawiasz", dir2.get(size))
+        if size > 1:
+            print("Najpierw zdecyduj czy statek ma byc pionowo czy poziomo.")
+            while direction != 1 and direction != 0:
+                try:
+                    direction = int(input("Pionowo wpisz 1, poziomo wpisz 0: "))
+                except ValueError:
+                    print("Wpisz poprawnie! 0 lub 1")
+        print("wybrano: ", dir.get(direction))
+
+        isShipAdded = False
+        while not isShipAdded:
+            print(
+                "Teraz podaj pierwsza wspolrzedna swojego statku.(np.: B7 lub b7) \n Pamietaj ze litery od a do j, a indeksy od 0 do 9")
+            XY = ""
+            X, Y = -1, -1
+            while X == -1 or Y == -1:
+                X, Y = -1, -1
+                XY = input("Podaj wspolrzedna ")
+                if len(XY) >= 2:
+                    if ord(XY[0]) > 64 and ord(XY[0]) < 75:
+                        X = ord(XY[0]) - 65
+                    if ord(XY[0]) > 96 and ord(XY[0]) < 107:
+                        X = ord(XY[0]) - 97
+                    if ord(XY[1]) > 47 and ord(XY[1]) < 58:
+                        Y = ord(XY[1]) - 48
+                # print("X ", X)
+                # print("Y ", Y)
+            correct = True
+            if direction == 1:
+                for i in range(0, size):
+                    if (self.isFieldAvailable(X + i, Y) == False):
+                        correct = False
+            elif direction == 0:
+                for i in range(0, size):
+                    if (self.isFieldAvailable(X, Y + i) == False):
+                        correct = False
+            elif direction == 2:  # jednomasztowiec
+                if (self.isFieldAvailable(X, Y) == False):
+                    correct = False
+            if (correct):  # przeszlo wiec dodaje statek
+                if direction == 1:
+                    for i in range(0, size):
+                        self.gameBoard[X + i][Y] = 1
+                elif direction == 0:
+                    for i in range(0, size):
+                        self.gameBoard[X][Y + i] = 1
+                elif direction == 2:  # jednomasztowiec
+                    self.gameBoard[X][Y] = 1
+                isShipAdded = True
+        self.printBoard()
 
     def isFieldAvailable(self, x, y):
         ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na statek '''
@@ -128,7 +206,13 @@ class Board:
 
     def printBoard(self, visibleShips=True):
         ''' Metoda do wyswietlenia stanu gry '''
+        print("  ", end="")
         for i in range(10):
+            print("", i, end="")
+        print("")
+        vertical = "ABCDEFGHIJ"
+        for i in range(10):
+            print(vertical[i], end=" ")
             for j in range(10):
                 self.printSymbol(self.gameBoard[i][j], visibleShips)
             print("")  # nowa linia
