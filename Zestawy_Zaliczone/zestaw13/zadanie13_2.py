@@ -4,24 +4,29 @@
 # Problem ośmiu hetmanów.
 # Wiersze i kolumny mają zakres od 0 do N-1.
 
+
 def rysuj():
     for w in range(N):
-        print ( " ".join(("H" if x[k] == w else ".") for k in range(N)) )
+        print(" ".join(("H" if x[k] == w else ".") for k in range(N)))
     print("")
 
+
 def dopuszczalny(w, k):
-    return a[w] and b[w+k] and c[w-k]
+    return a[w] and b[w + k] and c[w - k]
+
 
 def zapisz(w, k):
     x[k] = w
     a[w] = False
-    b[w+k] = False
-    c[w-k] = False
+    b[w + k] = False
+    c[w - k] = False
+
 
 def wymaz(w, k):
     a[w] = True
-    b[w+k] = True
-    c[w-k] = True
+    b[w + k] = True
+    c[w - k] = True
+
 
 # Znajdowanie jednego rozwiązania.
 # def probuj(k):
@@ -44,14 +49,14 @@ def probuj(k):
     for w in range(N):
         if dopuszczalny(w, k):
             zapisz(w, k)
-            if k < (N-1):
-                probuj(k+1)
+            if k < (N - 1):
+                probuj(k + 1)
             else:
                 rysuj()
             wymaz(w, k)
 
 
-N = 8  # bok szachownicy i jednocześnie liczba hetmanów
+N = 7  # bok szachownicy i jednocześnie liczba hetmanów
 
 # x[i] to pozycja hetmana w kolumnie i
 x = N * [None]
@@ -61,17 +66,17 @@ a = N * [True]
 
 # b[k] == True to brak hetmana na przekątnej k [/].
 # Suma wiersz+kolumna od 0 do (2N-2).
-b = (2*N-1) * [True]
+b = (2 * N - 1) * [True]
 
 # c[k] == True to brak hetmana na przekątnej k [\].
 # Różnica wiersz-kolumna od (-N+1) do (N-1).
-c = (2*N-1) * [True]
+c = (2 * N - 1) * [True]
 
 if probuj(0):
-    print ( "Mamy rozwiązanie" )
+    print("Mamy rozwiązanie")
     rysuj()
-else:
-    print ( "Nie istnieje rozwiązanie" )
+# else:
+#     print("Nie istnieje rozwiązanie")
 # Problem ośmiu hetmanów.
 # Znajdowanie wszystkich rozwiązań.
 
@@ -94,70 +99,70 @@ else:
 # oraz czwarte rozwiazanie ale tu obrót szachownicy nie zmienia miejsc zajetych przez hetmany            (1 rozwiazanie)
 # rozwiazanie 7. jest lustrzanym odbiciem rozwiazania nr 4                                               (1 rozwiazanie)
 
-#1.
+# 1.
 # H . . . .
 # . . . H .
 # . H . . .
 # . . . . H
 # . . H . .
 #
-#2.
+# 2.
 # H . . . .
 # . . H . .
 # . . . . H
 # . H . . .
 # . . . H .
 #
-#3.
+# 3.
 # . . H . .
 # H . . . .
 # . . . H .
 # . H . . .
 # . . . . H
 #
-#4.
+# 4.
 # . . . H .
 # H . . . .
 # . . H . .
 # . . . . H
 # . H . . .
 #
-#5.
+# 5.
 # . H . . .
 # . . . H .
 # H . . . .
 # . . H . .
 # . . . . H
 #
-#6.
+# 6.
 # . . . . H
 # . . H . .
 # H . . . .
 # . . . H .
 # . H . . .
 #
-#7.
+# 7.
 # . H . . .
 # . . . . H
 # . . H . .
 # H . . . .
 # . . . H .
 #
-#8.
+# 8.
 # . . . . H
 # . H . . .
 # . . . H .
 # H . . . .
 # . . H . .
 #
-#9.
+# 9.
 # . . . H .
 # . H . . .
 # . . . . H
 # . . H . .
 # H . . . .
 #
-#10.
+# 10.
 # . . H . .
 # . . . . H
 # . H . . .
