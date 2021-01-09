@@ -51,7 +51,15 @@ class Player:
                 Y = XY[1]
             else:
                 print("Ruch komputera")
-                time.sleep(2)
+                alreadyHitted = []
+                for i in range(0, 10):
+                    for j in range(0, 10):
+                        if opponentBoard.gameBoard[i][j] == 3:
+                            alreadyHitted.append([i,j])
+                            # TODO INTELIGENTNY RUCH JESLI MA JAKIES TRAFIONE NA PLANSZY TO  STRZELA OBOK  ALE ZEBY WYKRYL TEZ ZE DWA W JEDNEj LINII TO W TEJ LADUJE
+                print("alreadyHitted", alreadyHitted)
+
+                #time.sleep(2)
                 X = random.randint(0, 9)
                 Y = random.randint(0, 9)
             if opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek

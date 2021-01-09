@@ -446,3 +446,5 @@ class Board:
         # jak tu doszedlem to zatopiony!!
         #self.gameBoard[x][y] = 4
         return True
+
+
