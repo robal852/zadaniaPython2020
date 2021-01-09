@@ -42,7 +42,6 @@ class Player:
             2: "BYLO BLISKO",
         }
 
-
         success = False
         while not success:
             if self.isHuman:
@@ -57,15 +56,13 @@ class Player:
                 Y = random.randint(0, 9)
             if opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
                 if opponentBoard.gameBoard[X][Y] == 0:
-                    opponentBoard.gameBoard[X][Y] = 2  # pudlo
                     print(negMessage.get(random.randint(0, 2)))
+                    opponentBoard.gameBoard[X][Y] = 2  # pudlo
                     return False
                 elif opponentBoard.gameBoard[X][Y] == 1:
-                    opponentBoard.gameBoard[X][Y] = 3  # trafiony
                     print(posMessage.get(random.randint(0, 6)))
-                    if opponentBoard.checkIfSunk(X, Y): # trafiony-zatopiony
+                    opponentBoard.gameBoard[X][Y] = 3  # trafiony
+                    if opponentBoard.checkIfSunk(X, Y):  # trafiony-zatopiony
                         opponent.aliveShips -= 1
                     return True
                 success = True
-
-
