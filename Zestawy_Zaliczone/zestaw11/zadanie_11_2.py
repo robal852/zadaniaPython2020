@@ -11,7 +11,7 @@
 import os
 import time
 
-from zestaw11.listy import *
+from Zestawy_Zaliczone.zestaw11.listy import *
 
 delay = 0.42
 
