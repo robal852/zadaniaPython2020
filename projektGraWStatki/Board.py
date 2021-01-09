@@ -274,9 +274,9 @@ class Board:
 
     def checkIfSunk(self, x, y):
         ''' sprawdza czy statek juz zatopiony '''
-        # TODO            jesli tak to zatopic i zwrocic true jesli nie to zwrocic false
+        # TODO  czasem nie zatapia w lewa strone :(
 
-        self.gameBoard[x][y] = -1  # zeby pominal to pole
+        self.gameBoard[x][y] = 4  # zeby pominal to pole
         # sprawdzam czy ma kontakt z zywym statkiem
         # narozniki
         if x == 0 and y == 0:
@@ -299,7 +299,7 @@ class Board:
         if x > 0 and x < 9 and y == 0:
             if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
-
+                return False
         if x > 0 and x < 9 and y == 9:
             if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y - 1] == 1:
                 self.gameBoard[x][y] = 3
@@ -308,6 +308,7 @@ class Board:
             if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x][y - 1] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
+
         if y > 0 and y < 9 and x == 9:
             if self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y - 1] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
@@ -319,8 +320,6 @@ class Board:
                 self.gameBoard[x][y] = 3
                 return False
         # sprawddzic czy ma kontakt z trafionym zeby znalezc gdy juz zatopilem
-
-        self.isFieldAvailable(x, y, field=3)  # 3 to trafiony wiec interesuje mnie gdy ma true
 
         # sprawdzam czy ma kontakt z trafionym, jak ma kontakt to od nowa dla tego pola sprawdzam
         # narozniki
@@ -338,10 +337,12 @@ class Board:
             if self.gameBoard[x - 1][y] == 3:
                 if not self.checkIfSunk(x - 1, y):
                     self.gameBoard[x][y] = 3
+                    return False
 
             if self.gameBoard[x][y + 1] == 3:
                 if not self.checkIfSunk(x, y + 1):
                     self.gameBoard[x][y] = 3
+                    return False
 
         if x == 9 and y == 9:
             if self.gameBoard[x - 1][y] == 3:
@@ -404,7 +405,7 @@ class Board:
                     return False
 
             if self.gameBoard[x][y - 1] == 3:
-                if not self.checkIfSunk(x + 1, y):
+                if not self.checkIfSunk(x, y - 1):
                     self.gameBoard[x][y] = 3
                     return False
 
