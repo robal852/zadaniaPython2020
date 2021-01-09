@@ -274,8 +274,6 @@ class Board:
 
     def checkIfSunk(self, x, y):
         ''' sprawdza czy statek juz zatopiony '''
-        # TODO  czasem nie zatapia w lewa strone :(
-
         self.gameBoard[x][y] = 4  # zeby pominal to pole
         # sprawdzam czy ma kontakt z zywym statkiem
         # narozniki
@@ -350,7 +348,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-            if self.gameBoard[x][y - 1] == 1:
+            if self.gameBoard[x][y - 1] == 3:
                 if not self.checkIfSunk(x, y - 1):
                     self.gameBoard[x][y] = 3
                     return False
@@ -441,10 +439,10 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-            if self.gameBoard[x][y - 1] == 1:
+            if self.gameBoard[x][y - 1] == 3:
                 if not self.checkIfSunk(x, y - 1):
                     self.gameBoard[x][y] = 3
                     return False
         # jak tu doszedlem to zatopiony!!
-        self.gameBoard[x][y] = 4
+        #self.gameBoard[x][y] = 4
         return True
