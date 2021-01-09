@@ -20,9 +20,8 @@ class Game:
         self.board1, self.board2 = Board(), Board()
         self.setBoard(self.player1, self.board1)
         self.setBoard(self.player2, self.board2)
-        self.board1.printBoard()
-        print("")
-        self.board2.printBoard()
+
+        self.startGame()
 
     def choosePlayers(self):
         ''' Wybór czy gra człowiek czy komputer '''
@@ -58,23 +57,42 @@ class Game:
                 except ValueError:
                     print("Wpisz poprawnie! 1 lub 0")
             if (choice):
-                board.setBoardManually()
+                board.setBoardManually(player)
             else:
-                board.setBoardAuto()
+                board.setBoardAuto(player)
         else:
-            board.setBoardAuto()
+            board.setBoardAuto(player)
 
     def startGame(self):
         ''' Tu rozgrywka '''
-
-        while (self.isEnd()):
-            self.player1.move()
-            self.player2.move()
-        pass
+        self.printGameStatus()
+        while not self.isEnd():
+            mv = True  # True gracz rusza, False zmiana kolejki, za trafienie jest dodatkowy ruch
+            while (mv and not self.isEnd()):
+                mv = self.player1.move(self.board2, opponent=self.player2)
+                self.printGameStatus()
+            mv = True
+            while (mv and not self.isEnd()):
+                mv = self.player2.move(self.board1, opponent=self.player1)
+                self.printGameStatus()
 
     def isEnd(self):
         ''' Czy koniec gry'''
-        pass
+        if self.player1.isLoser() or self.player2.isLoser():
+            print("KONIEC GRY!")
+            return True
+        return False
+
+    def printGameStatus(self):
+        ''' Podglad na stan gry'''
+
+        print("Gracz 1:")
+        self.board1.printBoard()
+        print("Gracz 2:")
+        self.board2.printBoard(
+            visibleShips=False)  # Zakladam ze chce grac jako gracz 1 a gracz 2 to moj przeciwnik wiec nie bede podgladfal gdzie sa statki
 
 
+print("Najlepiej wybrac gracz 1 jako czlowiek i gracz 2 jako komputer,\n"
+      " bo ustawione, ze widac statki gracza 1, a gracza 2 sa niewidoczne.\n")
 Game()

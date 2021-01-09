@@ -15,7 +15,7 @@ class Board:
                 x += 1
             self.gameBoard.append(y)
 
-    def setBoardManually(self):
+    def setBoardManually(self, player):
         ''' Ustawianie statków na planszy '''
         self.addShipManually(size=4)
         self.addShipManually(size=3)
@@ -27,8 +27,9 @@ class Board:
         self.addShipManually(size=1)
         self.addShipManually(size=1)
         self.addShipManually(size=1)
+        player.aliveShips += 10
 
-    def setBoardAuto(self):
+    def setBoardAuto(self, player):
         ''' Ustawianie automatyczne dla komputera lub dla leniwego '''
         self.addShip(size=4)
         self.addShip(size=3)
@@ -40,6 +41,7 @@ class Board:
         self.addShip(size=1)
         self.addShip(size=1)
         self.addShip(size=1)
+        player.aliveShips += 10
 
     def addShip(self, size):
         ''' Metodą brute force losuje gdzie upchnąć statek,
@@ -256,3 +258,8 @@ class Board:
         else:
             symbol = switcher2.get(number)
         print(symbol, end="")
+
+    def checkIfSunk(self, X, Y):
+        ''' sprawdza czy statek juz zatopiony '''
+        # TODO            jesli tak to zatopic i zwrocic true jesli nie to zwrocic false
+        pass
