@@ -23,6 +23,7 @@ X - trafiony-zatopiony
 ~~~~
 
 
+Aby zacząć grę uruchamiamy skrypt main.py
 
 Albert Surmacz
 10.01.2021
