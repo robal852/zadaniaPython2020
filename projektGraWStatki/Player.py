@@ -26,6 +26,10 @@ class Player:
     def move(self, opponentBoard, opponent):
         ''' Ruch czlowieka lub komputera '''
 
+        if not self.isHuman:
+            print("Ruch komputera")
+            time.sleep(0)  # Tu Mmge opoznic ruchy komputera zeby widziec co sie dzieje np przy pojedynku komputer vs komputer
+
         posMessage = {
             0: "TRAFIONY!",
             1: "JESZCZE RAZ I POJDZIE W PIACH!",
@@ -52,8 +56,6 @@ class Player:
 
             # czesc komputera
             else:
-                print("Ruch komputera")
-                # time.sleep(2)
                 alreadyHitted = []  # tutaj sobie zapisze gdzie juz trafil, a jeszcze nie zatopil
                 for i in range(0, 10):
                     for j in range(0, 10):
@@ -148,11 +150,13 @@ class Player:
                 elif opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
                     success = True
                     if opponentBoard.gameBoard[X][Y] == 0:
-                        print(negMessage.get(random.randint(0, 2)))
+                        if self.isHuman:
+                            print(negMessage.get(random.randint(0, 2)))
                         opponentBoard.gameBoard[X][Y] = 2  # pudlo
                         return False
                     elif opponentBoard.gameBoard[X][Y] == 1:
-                        print(posMessage.get(random.randint(0, 6)))
+                        if self.isHuman:
+                            print(posMessage.get(random.randint(0, 6)))
                         opponentBoard.gameBoard[X][Y] = 3  # trafiony
                         if opponentBoard.checkIfSunk(X, Y):  # trafiony-zatopiony
                             opponent.aliveShips -= 1

@@ -90,9 +90,3 @@ class Game:
         self.board1.printBoard()
         print("Gracz 2:")
         self.board2.printBoard(visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2
-
-
-print("Najlepiej wybrac gracz 1 jako czlowiek i gracz 2 jako komputer,\n"
-      " bo ustawione, ze widac statki gracza 1, a gracza 2 sa niewidoczne.\n"
-      "lub 1 jako ko0mputer, a 2 jako czlowiek zeby latwo przetestowac widzac statki przeciwnika\n")
-Game()
