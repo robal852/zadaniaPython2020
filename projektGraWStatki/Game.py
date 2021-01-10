@@ -89,8 +89,7 @@ class Game:
         print("Gracz 1:")
         self.board1.printBoard()
         print("Gracz 2:")
-        self.board2.printBoard(
-            visibleShips=False)  # Zakladam ze chce grac jako gracz 1 a gracz 2 to moj przeciwnik wiec nie bede podgladfal gdzie sa statki
+        self.board2.printBoard(visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2
 
 
 print("Najlepiej wybrac gracz 1 jako czlowiek i gracz 2 jako komputer,\n"

@@ -106,8 +106,6 @@ class Board:
                 XY = self.getCoordinates()
                 X = XY[0]
                 Y = XY[1]
-            # print("X ", X)
-            # print("Y ", Y)
             correct = True
             if direction == 1:
                 for i in range(0, size):
@@ -444,7 +442,4 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
         # jak tu doszedlem to zatopiony!!
-        #self.gameBoard[x][y] = 4
         return True
-
-
