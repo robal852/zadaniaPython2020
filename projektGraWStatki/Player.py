@@ -137,18 +137,13 @@ class Player:
                     X = random.randint(0, 9)
                     Y = random.randint(0, 9)
 
-            # print("XXXXXXXXXXXXXXXXXXXXXX ", X)
-            # print("YYYYYYYYYYYYYYYYYYYYYY ", Y)
-            # print("co tu jest", opponentBoard.gameBoard[X][Y])
-
-            if not self.isHuman and not opponentBoard.isFieldAvailable(X, Y,
-                                                                       field=4):  # komputer nie strzela obok zatopionego!
+            # komputer nie strzela obok zatopionego!
+            if not self.isHuman and not opponentBoard.isFieldAvailable(X, Y, field=4):
                 success = False
             else:
                 # czesc wspolna czlowiek-komputer sprawdzam czy poprawny strzal i zaznaczam na planszy
                 if opponentBoard.gameBoard[X][Y] == 2 or opponentBoard.gameBoard[X][Y] == 3 or \
-                        opponentBoard.gameBoard[X][
-                            Y] == 4:
+                        opponentBoard.gameBoard[X][Y] == 4:
                     success = False
                 elif opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
                     success = True

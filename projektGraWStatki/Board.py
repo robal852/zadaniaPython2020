@@ -148,7 +148,8 @@ class Board:
         return [X, Y]
 
     def isFieldAvailable(self, x, y, field):
-        ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na statek
+        ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na statek (gdy field=1)
+        przy field=4 uzywam do sprawdzenia czy komputer nie prubuje strzelic obok zatopionego statklu
         field to pole jakiego nie moze miec w poblizu
         '''
         if x > 9:
@@ -164,67 +165,56 @@ class Board:
                     return True
             elif y == 9:
                 if self.gameBoard[x][y] == field or self.gameBoard[x + 1][y] == field or self.gameBoard[x][
-                    y - 1] == field or \
-                        self.gameBoard[x + 1][y - 1] == field:
+                    y - 1] == field or self.gameBoard[x + 1][y - 1] == field:
                     return False
                 else:
                     return True
             else:
                 if self.gameBoard[x][y] == field or self.gameBoard[x + 1][y] == field or self.gameBoard[x][
-                    y - 1] == field or \
-                        self.gameBoard[x][y + 1] == field or self.gameBoard[x + 1][y - 1] == field or \
-                        self.gameBoard[x + 1][
-                            y + 1] == field:
+                    y - 1] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x + 1][y - 1] == field or \
+                        self.gameBoard[x + 1][y + 1] == field:
                     return False
                 else:
                     return True
         elif x == 9:
             if y == 0:
                 if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x][
-                    y + 1] == field or \
-                        self.gameBoard[x - 1][y + 1] == field:
+                    y + 1] == field or self.gameBoard[x - 1][y + 1] == field:
                     return False
                 else:
                     return True
             elif y == 9:
                 if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x][
-                    y - 1] == field or \
-                        self.gameBoard[x - 1][y - 1] == field:
+                    y - 1] == field or self.gameBoard[x - 1][y - 1] == field:
                     return False
                 else:
                     return True
             else:
                 if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x][
-                    y - 1] == field or \
-                        self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or \
-                        self.gameBoard[x - 1][
-                            y - 1] == field:
+                    y - 1] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or \
+                        self.gameBoard[x - 1][y - 1] == field:
                     return False
                 else:
                     return True
         elif y == 0:
             if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x + 1][
-                y] == field or \
-                    self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or self.gameBoard[x + 1][
-                y + 1] == field:
+                y] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or \
+                    self.gameBoard[x + 1][y + 1] == field:
                 return False
             else:
                 return True
         elif y == 9:
             if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x + 1][
-                y] == field or \
-                    self.gameBoard[x - 1][y - 1] == field or self.gameBoard[x][y] == field or self.gameBoard[x][
-                y - 1] == field or \
-                    self.gameBoard[x + 1][y - 1] == field:
+                y] == field or self.gameBoard[x - 1][y - 1] == field or self.gameBoard[x][y] == field or \
+                    self.gameBoard[x][y - 1] == field or self.gameBoard[x + 1][y - 1] == field:
                 return False
             else:
                 return True
         else:  # 9 pol srodek i 8 dookola
             if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x + 1][
-                y] == field or \
-                    self.gameBoard[x][y - 1] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][
-                y - 1] == field or self.gameBoard[x + 1][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or \
-                    self.gameBoard[x + 1][y - 1] == field:
+                y] == field or self.gameBoard[x][y - 1] == field or self.gameBoard[x][y + 1] == field or \
+                    self.gameBoard[x - 1][y - 1] == field or self.gameBoard[x + 1][y + 1] == field or \
+                    self.gameBoard[x - 1][y + 1] == field or self.gameBoard[x + 1][y - 1] == field:
                 return False
             else:
                 return True
