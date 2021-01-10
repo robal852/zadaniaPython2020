@@ -5,7 +5,7 @@ Zasady:
 Gra dla dwóch graczy (możliwość wyboru człowiek/komputer). Każdy ma w swojej flocie czteromasztowiec, dwa trzymasztowce, trzy dwumasztowce oraz cztery jednomasztowce.
 Na początku należy rozstawić swoje statki na planszy 10x10. Komputer swoje statki rozstawia automatycznie metodą brute force.
 Człowiek ma możliwość ustawienia swoich statków samodzielnie lub rozstawić automatycznie.
-Zaczyna gracz 1 i gracze na zmianę oddają strzały, za każde trafienie jest dodatkowy strzał. Aby oddać strzał należy wpisać współrzędne składające się z litery i cyfry. 
+Zaczyna gracz 1 i gracze na zmianę oddają strzały, za każde trafienie jest dodatkowy strzał. Aby oddać strzał należy wpisać współrzędne składające się z litery i cyfry. Przykład: "a6".
 Zakres A-J i 0-9. Można używać małych lub dużych liter.
 
 Jak gra komputer?
