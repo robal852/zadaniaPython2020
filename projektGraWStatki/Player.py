@@ -49,82 +49,118 @@ class Player:
                 XY = opponentBoard.getCoordinates()
                 X = XY[0]
                 Y = XY[1]
+
+            # czesc komputera
             else:
-                print("Ruch komputera")  # TODO dodac sprawdzenie czy ma w poblizu zatopiony statek
+                print("Ruch komputera")
                 # time.sleep(2)
-                alreadyHitted = []
+                alreadyHitted = []  # tutaj sobie zapisze gdzie juz trafil, a jeszcze nie zatopil
                 for i in range(0, 10):
                     for j in range(0, 10):
                         if opponentBoard.gameBoard[i][j] == 3:
                             alreadyHitted.append([i, j])
-                            # TODO INTELIGENTNY RUCH  ZEBY WYKRYL TEZ ZE DWA W JEDNEj LINII TO W TEJ LADUJE
-                # print("alreadyHitted", alreadyHitted)
-                # print("len", len(alreadyHitted))
-                if len(alreadyHitted) == 1:  # tylko jedno trafione pole wiec bede obok strzelal
-                    rand = random.randint(0, 3)  # jedno z 4 obok trafionego: gora, dol, prawo, lewo
+                # tylko jedno trafione pole wiec bede obok strzelal
+                if len(alreadyHitted) == 1:
+                    print("already hittewd =1")
                     X = alreadyHitted[0][0]
                     Y = alreadyHitted[0][1]
-                    # print("HELLLOOO", X, Y)
-                    while opponentBoard.gameBoard[X][Y] == 3:
+                    while opponentBoard.gameBoard[X][Y] != 0 and opponentBoard.gameBoard[X][
+                        Y] != 1:  # nie chce strzelac tam gdzie juz strzelalem - zostaje woda albo statek
+                        rand = random.randint(0, 3)  # jedno z 4 obok trafionego: gora, dol, prawo, lewo
                         X = alreadyHitted[0][0]
                         Y = alreadyHitted[0][1]
-                        if rand == 0 and X < 9:  # jak bedzie x=9 to zostanie x i y na tym co bylo czyli pole "trafiony satek"
-                            X += 1
-                        elif rand == 1 and Y < 9:
-                            Y += 1
-                        elif rand == 2 and X > 0:
-                            X -= 1
-                        elif rand == 3 and Y > 0:
-                            Y -= 1
+                        if rand == 0:
+                            if X < 9:
+                                X += 1
+                            else:
+                                X -= 1
+                        elif rand == 1:
+                            if Y < 9:
+                                Y += 1
+                            else:
+                                Y -= 1
+                        elif rand == 2:
+                            if X > 0:
+                                X -= 1
+                            else:
+                                X += 1
+                        elif rand == 3:
+                            if Y > 0:
+                                Y -= 1
+                            else:
+                                Y += 1
+                # gdy conajmniej dwa trafione pola to w tej samej linii strzeli
                 elif len(alreadyHitted) > 1:  # wykryc kierunek
-                    rand = random.randint(0, 1)
-                    if alreadyHitted[0][0] == alreadyHitted[1][0]:  # X
-                        X = alreadyHitted[0][0]
-                        maxY = alreadyHitted[0][1]
-                        minY = alreadyHitted[0][1]
-                        for i in alreadyHitted:
-                            if i[0][1] > maxY:
-                                maxY = i[0][1]
-                            if i[0][1] < minY:
-                                minY = i[0][1]
-                        if minY == 0:
-                            y = maxY + 1
-                        elif maxY == 9:
-                            y = minY - 1
-                        elif rand == 0:
-                            Y = maxY + 1
-                        elif rand == 1:
-                            y = minY - 1
-
-                    else:  # Y
-                        Y = alreadyHitted[0][1]
-                        maxX = alreadyHitted[0][0]
-                        minX = alreadyHitted[0][0]
-                        for i in alreadyHitted:
-                            if i[0][0] > maxX:
-                                maxX = i[0][0]
-                            if i[0][0] < minX:
-                                minX = i[0][0]
-                        if minX == 0:
-                            X = maxX + 1
-                        elif maxX == 9:
-                            X = minX - 1
-                        elif rand == 0:
-                            X = maxX + 1
-                        elif rand == 1:
-                            X = minX - 1
-                else:
+                    X = alreadyHitted[0][0]
+                    Y = alreadyHitted[0][1]
+                    while opponentBoard.gameBoard[X][Y] != 0 and opponentBoard.gameBoard[X][Y] != 1:
+                        rand = random.randint(0, 1)
+                        if alreadyHitted[0][0] == alreadyHitted[1][0]:  # X taki sam wiec zmieniam tylko Y
+                            X = alreadyHitted[0][0]
+                            maxY = alreadyHitted[0][1]
+                            minY = alreadyHitted[0][1]
+                            for i in alreadyHitted:
+                                if i[1] > maxY:
+                                    maxY = i[1]
+                                if i[1] < minY:
+                                    minY = i[1]
+                            if minY == 0:
+                                Y = maxY + 1
+                            elif maxY == 9:
+                                Y = minY - 1
+                            elif rand == 0:
+                                Y = maxY + 1
+                            elif rand == 1:
+                                Y = minY - 1
+                        else:  # Y taki sam wiec zmieniam tylko X
+                            rand = random.randint(0, 1)
+                            X = alreadyHitted[0][0]
+                            Y = alreadyHitted[0][1]
+                            while opponentBoard.gameBoard[X][Y] == 3:
+                                Y = alreadyHitted[0][1]
+                                maxX = alreadyHitted[0][0]
+                                minX = alreadyHitted[0][0]
+                                for i in alreadyHitted:
+                                    if i[0] > maxX:
+                                        maxX = i[0]
+                                    if i[0] < minX:
+                                        minX = i[0]
+                                if minX == 0:
+                                    X = maxX + 1
+                                elif maxX == 9:
+                                    X = minX - 1
+                                elif rand == 0:
+                                    X = maxX + 1
+                                elif rand == 1:
+                                    X = minX - 1
+                else:  # nie ma zadnego trafionego
                     X = random.randint(0, 9)
                     Y = random.randint(0, 9)
-            if opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
-                if opponentBoard.gameBoard[X][Y] == 0:
-                    print(negMessage.get(random.randint(0, 2)))
-                    opponentBoard.gameBoard[X][Y] = 2  # pudlo
-                    return False
-                elif opponentBoard.gameBoard[X][Y] == 1:
-                    print(posMessage.get(random.randint(0, 6)))
-                    opponentBoard.gameBoard[X][Y] = 3  # trafiony
-                    if opponentBoard.checkIfSunk(X, Y):  # trafiony-zatopiony
-                        opponent.aliveShips -= 1
-                    return True
-                success = True
+
+            # print("XXXXXXXXXXXXXXXXXXXXXX ", X)
+            # print("YYYYYYYYYYYYYYYYYYYYYY ", Y)
+            # print("co tu jest", opponentBoard.gameBoard[X][Y])
+
+            if not self.isHuman and not opponentBoard.isFieldAvailable(X, Y,
+                                                                       field=4):  # komputer nie strzela obok zatopionego!
+                success = False
+            else:
+                # czesc wspolna czlowiek-komputer sprawdzam czy poprawny strzal i zaznaczam na planszy
+                if opponentBoard.gameBoard[X][Y] == 2 or opponentBoard.gameBoard[X][Y] == 3 or \
+                        opponentBoard.gameBoard[X][
+                            Y] == 4:
+                    success = False
+                elif opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
+                    success = True
+                    if opponentBoard.gameBoard[X][Y] == 0:
+                        print(negMessage.get(random.randint(0, 2)))
+                        opponentBoard.gameBoard[X][Y] = 2  # pudlo
+                        return False
+                    elif opponentBoard.gameBoard[X][Y] == 1:
+                        print(posMessage.get(random.randint(0, 6)))
+                        opponentBoard.gameBoard[X][Y] = 3  # trafiony
+                        if opponentBoard.checkIfSunk(X, Y):  # trafiony-zatopiony
+                            opponent.aliveShips -= 1
+                        return True
+                else:
+                    print("Cos poszlo nie tak")
