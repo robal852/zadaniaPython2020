@@ -48,7 +48,6 @@ class Player:
                             alreadyHitted.append([i, j])
                 # tylko jedno trafione pole wiec bede obok strzelal
                 if len(alreadyHitted) == 1:
-                    print("already hittewd =1")
                     X = alreadyHitted[0][0]
                     Y = alreadyHitted[0][1]
                     while opponentBoard.gameBoard[X][Y] != 0 and opponentBoard.gameBoard[X][
