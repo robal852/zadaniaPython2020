@@ -1,6 +1,7 @@
 from projektGraWStatki.Player import Player
 from projektGraWStatki.Board import Board
 from os import system, name
+import random
 
 
 class Game:
@@ -66,16 +67,43 @@ class Game:
 
     def startGame(self):
         ''' Tu rozgrywka '''
+
+        posMessage = {
+            0: "TRAFIONY!",
+            1: "JESZCZE RAZ I POJDZIE W PIACH!",
+            2: "PRZECIWNIK OBERWAL!",
+            3: "PODOBALO SIE..? MAM WIECEJ!",
+            4: "DORWALISMY GO!",
+            5: "WESZLO JAK W MASLO!",
+            6: "TO MUSIAL POCZUC!"
+        }
+
+        negMessage = {
+            0: "PUDLO!",
+            1: "TYM GO NIE POKONAMY!",
+            2: "BYLO BLISKO",
+        }
+
         self.printGameStatus()
         while not self.isEnd():
             mv = True  # True gracz rusza, False zmiana kolejki, za trafienie jest dodatkowy ruch
             while (mv and not self.isEnd()):
                 mv = self.player1.move(self.board2, opponent=self.player2)
                 self.printGameStatus()
+                if self.player1.isHuman:
+                    if mv:
+                        print(posMessage.get(random.randint(0, 6)))
+                    else:
+                        print(negMessage.get(random.randint(0, 2)))
             mv = True
             while (mv and not self.isEnd()):
                 mv = self.player2.move(self.board1, opponent=self.player1)
                 self.printGameStatus()
+                if self.player2.isHuman:
+                    if mv:
+                        print(posMessage.get(random.randint(0, 6)))
+                    else:
+                        print(negMessage.get(random.randint(0, 2)))
 
     def isEnd(self):
         ''' Czy koniec gry'''
@@ -89,7 +117,7 @@ class Game:
         Czyszci terminal, po czym wypisuje aktualne plansze graczy
         '''
 
-        #https://www.geeksforgeeks.org/clear-screen-python/
+        # https://www.geeksforgeeks.org/clear-screen-python/
         # for windows
         if name == 'nt':
             _ = system('cls')
@@ -97,9 +125,7 @@ class Game:
         else:
             _ = system('clear')
 
-
         print("Gracz 1:")
         self.board1.printBoard()
         print("Gracz 2:")
         self.board2.printBoard(visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2
-

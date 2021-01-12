@@ -28,23 +28,8 @@ class Player:
 
         if not self.isHuman:
             print("Ruch komputera")
-            time.sleep(0)  # Tu Mmge opoznic ruchy komputera zeby widziec co sie dzieje np przy pojedynku komputer vs komputer
-
-        posMessage = {
-            0: "TRAFIONY!",
-            1: "JESZCZE RAZ I POJDZIE W PIACH!",
-            2: "PRZECIWNIK OBERWAL!",
-            3: "PODOBALO SIE..? MAM WIECEJ!",
-            4: "DORWALISMY GO!",
-            5: "WESZLO JAK W MASLO!",
-            6: "TO MUSIAL POCZUC!"
-        }
-
-        negMessage = {
-            0: "PUDLO!",
-            1: "TYM GO NIE POKONAMY!",
-            2: "BYLO BLISKO",
-        }
+            # Tu Mmge opoznic ruchy komputera zeby widziec co sie dzieje np przy pojedynku komputer vs komputer
+            time.sleep(1)
 
         success = False
         while not success:
@@ -150,13 +135,9 @@ class Player:
                 elif opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
                     success = True
                     if opponentBoard.gameBoard[X][Y] == 0:
-                        if self.isHuman:
-                            print(negMessage.get(random.randint(0, 2)))
                         opponentBoard.gameBoard[X][Y] = 2  # pudlo
                         return False
                     elif opponentBoard.gameBoard[X][Y] == 1:
-                        if self.isHuman:
-                            print(posMessage.get(random.randint(0, 6)))
                         opponentBoard.gameBoard[X][Y] = 3  # trafiony
                         if opponentBoard.checkIfSunk(X, Y):  # trafiony-zatopiony
                             opponent.aliveShips -= 1

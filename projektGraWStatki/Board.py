@@ -149,7 +149,7 @@ class Board:
 
     def isFieldAvailable(self, x, y, field):
         ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na statek (gdy field=1)
-        przy field=4 uzywam do sprawdzenia czy komputer nie prubuje strzelic obok zatopionego statklu
+        przy field=4 uzywam do sprawdzenia czy komputer nie probuje strzelic obok zatopionego statklu
         field to pole jakiego nie moze miec w poblizu
         '''
         if x > 9:
