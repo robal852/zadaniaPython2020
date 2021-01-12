@@ -66,8 +66,8 @@ Pozwala na wybieranie współrzędnych oraz na sprawdzanie sąsiadów danej wspo
 class Player:
     """ Klasa reprezentująca gracza (czlowiek lub komputer)"""
 ~~~
-Głównym zadaniem klasy Player jest umożliwienie oddaweania strzałów.
-Ale ma też również informacje czy to człowiek czy komputer. Oraz ile pozostało mu niezatopionych statków.
+Głównym zadaniem klasy Player jest umożliwienie oddawania strzałów.
+Przechowuje również informację czy to człowiek czy komputer, oraz ile pozostało mu niezatopionych statków.
 
 ## Jak zacząć?
 Aby zacząć grę uruchamiamy skrypt main.py
