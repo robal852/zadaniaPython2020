@@ -1,5 +1,6 @@
 from projektGraWStatki.Player import Player
 from projektGraWStatki.Board import Board
+from os import system, name
 
 
 class Game:
@@ -84,9 +85,21 @@ class Game:
         return False
 
     def printGameStatus(self):
-        ''' Podglad na stan gry'''
+        ''' Podglad na stan gry
+        Czyszci terminal, po czym wypisuje aktualne plansze graczy
+        '''
+
+        #https://www.geeksforgeeks.org/clear-screen-python/
+        # for windows
+        if name == 'nt':
+            _ = system('cls')
+            # for mac and linux(here, os.name is 'posix')
+        else:
+            _ = system('clear')
+
 
         print("Gracz 1:")
         self.board1.printBoard()
         print("Gracz 2:")
         self.board2.printBoard(visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2
+
