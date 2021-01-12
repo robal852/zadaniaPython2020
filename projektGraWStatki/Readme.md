@@ -9,7 +9,7 @@ Zaczyna gracz 1 i gracze na zmianę oddają strzały, za każde trafienie jest d
 Zakres A-J i 0-9. Można używać małych lub dużych liter.
 
 ## Legenda:
-~~~~
+~~~~python
 ~ - woda
 S - statek
 o - pudło
@@ -27,7 +27,7 @@ to komputer strzela na tej współrzędnej, wzdłuż której są już trafione p
 
 ## Opis Klas:
 
-~~~
+~~~python
 class Game:
     """ Główna klasa reprezentująca gre w statki """
 ~~~
@@ -45,13 +45,13 @@ Główna klasa to Game, w jej konstruktorze uruchamiana jest metoda setUp,
 
 
 
-~~~
+~~~python
 class Board:
     """ Klasa reprezentująca planszę do gry (10x10) """
 ~~~
 Kolejna to Board, gdzie przechowywana jest tablica wartosci int o rozmiarze 10x10.
 Przechowywane wartości mająswoje znaczenie:
-```
+```python
         0 oznacza wode                       ~
         1 oznacza statek                     S
         2 oznacza pudlo                      o
@@ -62,7 +62,7 @@ Znajdziemy tu metody do rysowania planszy z możliwościąwybrania czy chcemy wi
 Odpowiedzialna jest rónież za zatopienie statku w odpowiednim momencie.
 Pozwala na wybieranie współrzędnych oraz na sprawdzanie sąsiadów danej wspołrzędnej (używane przy strzale i ustawianiu statków).
 
-~~~
+~~~python
 class Player:
     """ Klasa reprezentująca gracza (czlowiek lub komputer)"""
 ~~~
