@@ -107,8 +107,13 @@ class Game:
 
     def isEnd(self):
         ''' Czy koniec gry'''
-        if self.player1.isLoser() or self.player2.isLoser():
+        if self.player1.isLoser():
             print("KONIEC GRY!")
+            print("WYGRAL GRACZ 2")
+            return True
+        elif self.player2.isLoser():
+            print("KONIEC GRY!")
+            print("WYGRAL GRACZ 1")
             return True
         return False
 
@@ -127,5 +132,5 @@ class Game:
 
         print("Gracz 1:")
         self.board1.printBoard()
-        print("Gracz 2:")
+        print("\nGracz 2:")
         self.board2.printBoard(visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2
