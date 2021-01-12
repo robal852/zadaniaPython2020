@@ -23,7 +23,7 @@ class Game:
         self.setBoard(self.player1, self.board1)
         self.setBoard(self.player2, self.board2)
 
-        self.startGame()
+        #self.startGame()
 
     def choosePlayers(self):
         ''' Wybór czy gra człowiek czy komputer '''
