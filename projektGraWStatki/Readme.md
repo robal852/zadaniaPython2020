@@ -2,11 +2,21 @@
 
 ## Zasady:
 
-Gra dla dwóch graczy (możliwość wyboru człowiek/komputer). Każdy ma w swojej flocie czteromasztowiec, dwa trzymasztowce, trzy dwumasztowce oraz cztery jednomasztowce.
-Na początku należy rozstawić swoje statki na planszy 10x10. Statki nie mogą się stykać (nawet kątami). Komputer swoje statki rozstawia automatycznie metodą brute force.
-Człowiek ma możliwość ustawienia swoich statków samodzielnie lub rozstawić automatycznie.
-Zaczyna gracz 1 i gracze na zmianę oddają strzały, za każde trafienie jest dodatkowy strzał. Aby oddać strzał, należy wpisać współrzędne składające się z litery i cyfry. Przykład: "a6".
-Zakres A-J i 0-9. Można używać małych lub dużych liter.
+Gra dla dwóch graczy, gdzie każdy z nich może grać jako człowiek lub komputer.<br />
+Każdy ma w swojej flocie:
+ - czteromasztowiec (1 szt),<br />
+ - trzymasztowiec  (2 szt),<br />
+ - dwumasztowiec (3 szt), <br />
+ - jednomasztowiec (4 szt).<br />
+
+Na początku należy rozstawić swoje statki na planszy o wymiarach 10x10.<br />
+Statki nie mogą się stykać (nawet kątami).<br />
+Komputer swoje statki rozstawia automatycznie metodą brute force.<br />
+Człowiek może użyćlosowego rozstawienia lub zrobić to samodzielnie.<br />
+Zaczyna gracz 1 i gracze na zmianę oddają strzały.<br />
+Za każde trafienie jest dodatkowy strzał.<br />
+Aby oddać strzał, należy wpisać współrzędne składające się z litery i cyfry.<br />
+Można używać małych lub dużych liter. Zakres wsółrzędnych to A-J i 0-9. 
 
 ## Legenda:
 ~~~~python
@@ -19,8 +29,12 @@ X - trafiony-zatopiony
 
 ## Jak gra komputer?
 
-Komputer strzela losowo do momentu, gdy trafi w statek przeciwnika. Gdy już wie, że trafił, to celuje obok tego pola. Gdy trafi drugi raz, a statek będzie wciąż nie zatopiony,
-to komputer strzela na tej współrzędnej, wzdłuż której są już trafione pola. Gdy już zatopi statek, znów zaczyna strzelać losowo, ale nigdy nie strzela obok zatopionego statku.
+Komputer strzela losowo do momentu, gdy trafi w statek przeciwnika. <br />
+Gdy już wie, że trafił, to celuje obok tego pola. <br />
+Gdy trafi drugi raz, a statek będzie wciąż nie zatopiony,<br />
+to komputer strzela na tej współrzędnej, wzdłuż której są już trafione pola. <br />
+Gdy już zatopi statek, znów zaczyna strzelać losowo, <br />
+ale nigdy nie strzela obok zatopionego statku.
 
 
 
@@ -31,11 +45,10 @@ to komputer strzela na tej współrzędnej, wzdłuż której są już trafione p
 class Game:
     """ Główna klasa reprezentująca gre w statki """
 ~~~
-Główna klasa to Game, w jej konstruktorze uruchamiana jest metoda setUp,
- w której wybieramy zawodników i rozstawiamy statki.
- Klasa ta posiada również metodę startGame(), która uruchamia rozgrywkę.
- Tutaj również sprawdzane jest czy ktoś przegrałaby w odpowiednim momencie zakończyć program.
- Ostatnie zadania tej klasy to rysowanie planszy oraz komunikaty po strzale z informacją czy trafiliśmy czy też nie. 
+Główna klasa, w jej konstruktorze wybieramy zawodników i rozstawiamy statki.<br />
+Posiada również metodę startGame(), która uruchamia rozgrywkę. <br />
+Jest tu też odpowiednia metoda do sprawdzenia gra powinna się już skończyć. <br />
+Tutaj też wywołuje rysowanie planszy oraz komunikaty po strzale. 
 
 
 
@@ -49,8 +62,8 @@ Główna klasa to Game, w jej konstruktorze uruchamiana jest metoda setUp,
 class Board:
     """ Klasa reprezentująca planszę do gry (10x10) """
 ~~~
-Kolejna to Board, gdzie przechowywana jest tablica wartosci int o rozmiarze 10x10.
-Przechowywane wartości mająswoje znaczenie:
+Klasa, gdzie przechowywana jest tablica o rozmiarze 10x10. <br />
+Przechowywane w niej wartości mają swoje znaczenie:
 ```python
         0 oznacza wode                       ~
         1 oznacza statek                     S
@@ -58,16 +71,20 @@ Przechowywane wartości mająswoje znaczenie:
         3 oznacza trafiony                   +
         4 oznacza trafiony zatopiony         X
 ```
-Znajdziemy tu metody do rysowania planszy z możliwościąwybrania czy chcemy widzieć statki.
-Odpowiedzialna jest rónież za zatopienie statku w odpowiednim momencie.
-Pozwala na wybieranie współrzędnych oraz na sprawdzanie sąsiadów danej wspołrzędnej (używane przy strzale i ustawianiu statków).
+Posiada metody które umożliwiają: <br />
+- rysowanie planszy z możliwością wybrania czy chcemy widzieć statki<br />
+- zatopienie statku w odpowiednim momencie. <br />
+- wybieranie współrzędnych<br />
+- sprawdzanie sąsiadów danej wspołrzędnej (np. przy ustawianiu statków).
 
 ~~~python
 class Player:
     """ Klasa reprezentująca gracza (czlowiek lub komputer)"""
 ~~~
-Głównym zadaniem klasy Player jest umożliwienie oddawania strzałów.
-Przechowuje również informację czy to człowiek czy komputer, oraz ile pozostało mu niezatopionych statków.
+Głównym zadaniem klasy Player jest umożliwienie oddawania strzałów. <br />
+Przechowuje informację na temat gracza:<br />
+- czy to człowiek czy komputer,
+- ile pozostało mu niezatopionych statków.
 
 ## Jak zacząć?
 Aby zacząć grę uruchamiamy skrypt main.py

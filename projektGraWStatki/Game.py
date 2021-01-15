@@ -1,5 +1,5 @@
-from projektGraWStatki.Player import Player
-from projektGraWStatki.Board import Board
+from Player import Player
+from Board import Board
 from os import system, name
 import random
 
@@ -8,9 +8,6 @@ class Game:
     """ Główna klasa reprezentująca gre w statki """
 
     def __init__(self):
-        self.setUp()
-
-    def setUp(self):
         """ Przygotowanie do rozgrywki, Wybor graczy i rozstawianie statkow
         player1, player2 - gracze
         board1, board2 - odpowiednio ich plansze ze statkami """
@@ -23,11 +20,12 @@ class Game:
         self.setBoard(self.player1, self.board1)
         self.setBoard(self.player2, self.board2)
 
-        #self.startGame()
+        # self.startGame()
 
     def choosePlayers(self):
         ''' Wybór czy gra człowiek czy komputer '''
-        print("Wybierz graczy: wpisz 1 jesli czlowiek, wpisz 0 jesli komputer.")
+        print(
+            "Wybierz graczy: wpisz 1 jesli czlowiek, wpisz 0 jesli komputer.")
         p1, p2 = -1, -1
         while (p1 != 0 and p1 != 1):
             try:
@@ -55,7 +53,9 @@ class Game:
             while (choice != 0 and choice != 1):
                 try:
                     choice = int(input(
-                        "Jesli chcesz rozstawiac recznie wpisz 1, jesli chcesz by komputer zrobil to za ciebie wpisz 0: "))
+                        "Jesli chcesz rozstawiac recznie wpisz 1, "
+                        "jesli chcesz by komputer zrobil to za ciebie wpisz "
+                        "0: "))
                 except ValueError:
                     print("Wpisz poprawnie! 1 lub 0")
             if (choice):
@@ -86,7 +86,8 @@ class Game:
 
         self.printGameStatus()
         while not self.isEnd():
-            mv = True  # True gracz rusza, False zmiana kolejki, za trafienie jest dodatkowy ruch
+            mv = True  # True gracz rusza, False zmiana kolejki,
+            # za trafienie jest dodatkowy ruch
             while (mv and not self.isEnd()):
                 mv = self.player1.move(self.board2, opponent=self.player2)
                 self.printGameStatus()
@@ -133,4 +134,5 @@ class Game:
         print("Gracz 1:")
         self.board1.printBoard()
         print("\nGracz 2:")
-        self.board2.printBoard(visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2
+        self.board2.printBoard(
+            visibleShips=False)  # NIE WIDZE STATKOW GRACZA 2

@@ -5,15 +5,11 @@ class Board:
     """ Klasa reprezentująca planszę do gry (10x10) """
 
     def __init__(self):
-        ''' Plansza zawiera statki i historie gdzie zostal ooddany strzal '''
-        self.gameBoard = []
-        x = 0
-        for i in range(10):
-            y = []
-            for j in range(10):
-                y.append(0)
-                x += 1
-            self.gameBoard.append(y)
+        ''' Plansza zawiera statki i historie gdzie zostal ooddany strzal
+        N to rozmiar tablicy
+        '''
+        self.N = 10
+        self.gameBoard = [[0] * self.N for _ in range(self.N)]
 
     def setBoardManually(self, player):
         ''' Ustawianie statków na planszy '''
@@ -49,15 +45,15 @@ class Board:
         while True:
             correct = True
             direction = random.randint(0, 1)  # 1 poziom, 0 pion
-            x = random.randint(0, 9)
-            y = random.randint(0, 9)
+            x = random.randint(0, self.N - 1)
+            y = random.randint(0, self.N - 1)
             if direction == 0:
                 for i in range(0, size):
-                    if (self.isFieldAvailable(x + i, y, field=1) == False):
+                    if not (self.isFieldAvailable(x + i, y, field=1)):
                         correct = False
             elif direction == 1:
                 for i in range(0, size):
-                    if (self.isFieldAvailable(x, y + i, field=1) == False):
+                    if not (self.isFieldAvailable(x, y + i, field=1)):
                         correct = False
             if (correct):  # przeszlo wiec dodaje statek
                 if direction == 0:
@@ -91,15 +87,18 @@ class Board:
             print("Najpierw zdecyduj czy statek ma byc pionowo czy poziomo.")
             while direction != 1 and direction != 0:
                 try:
-                    direction = int(input("Pionowo wpisz 1, poziomo wpisz 0: "))
+                    direction = int(
+                        input("Pionowo wpisz 1, poziomo wpisz 0: "))
                 except ValueError:
                     print("Wpisz poprawnie! 0 lub 1")
         print("wybrano: ", dir.get(direction))
 
         isShipAdded = False
         while not isShipAdded:
-            print("Teraz podaj pierwsza wspolrzedna swojego statku.(LiteraCyfra np. A0) "
-                  "\n Pamietaj ze statki nie moga sie stykac!")
+            print(
+                "Teraz podaj pierwsza wspolrzedna swojego statku.("
+                "LiteraCyfra np. A0) "
+                "\n Pamietaj ze statki nie moga sie stykac!")
             XY = ""
             X, Y = -1, -1
             while X == -1 or Y == -1:
@@ -109,14 +108,14 @@ class Board:
             correct = True
             if direction == 1:
                 for i in range(0, size):
-                    if (self.isFieldAvailable(X + i, Y, field=1) == False):
+                    if not (self.isFieldAvailable(X + i, Y, field=1)):
                         correct = False
             elif direction == 0:
                 for i in range(0, size):
-                    if (self.isFieldAvailable(X, Y + i, field=1) == False):
+                    if not (self.isFieldAvailable(X, Y + i, field=1)):
                         correct = False
             elif direction == 2:  # jednomasztowiec
-                if (self.isFieldAvailable(X, Y, field=1) == False):
+                if not (self.isFieldAvailable(X, Y, field=1)):
                     correct = False
             if (correct):  # przeszlo wiec dodaje statek
                 if direction == 1:
@@ -148,73 +147,92 @@ class Board:
         return [X, Y]
 
     def isFieldAvailable(self, x, y, field):
-        ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na statek (gdy field=1)
-        przy field=4 uzywam do sprawdzenia czy komputer nie probuje strzelic obok zatopionego statklu
+        ''' Sprawdzam pole z planszy i jego otoczenie czy nadaje sie na
+        statek (gdy field=1)
+        przy field=4 uzywam do sprawdzenia czy komputer nie probuje strzelic
+        obok zatopionego statklu
         field to pole jakiego nie moze miec w poblizu
         '''
-        if x > 9:
+        if x > self.N - 1:
             return False
-        elif y > 9:
+        elif y > self.N - 1:
             return False
         elif x == 0:
             if y == 0:
-                if self.gameBoard[x][y] == field or self.gameBoard[x + 1][y] == field or self.gameBoard[x][y + 1] or \
+                if self.gameBoard[x][y] == field or self.gameBoard[x + 1][
+                    y] == field or self.gameBoard[x][y + 1] or \
                         self.gameBoard[x + 1][y + 1] == field:
                     return False  # statek nie moze sie stykac ze statkiem
                 else:
                     return True
-            elif y == 9:
-                if self.gameBoard[x][y] == field or self.gameBoard[x + 1][y] == field or self.gameBoard[x][
+            elif y == self.N - 1:
+                if self.gameBoard[x][y] == field or self.gameBoard[x + 1][
+                    y] == field or self.gameBoard[x][
                     y - 1] == field or self.gameBoard[x + 1][y - 1] == field:
                     return False
                 else:
                     return True
             else:
-                if self.gameBoard[x][y] == field or self.gameBoard[x + 1][y] == field or self.gameBoard[x][
-                    y - 1] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x + 1][y - 1] == field or \
+                if self.gameBoard[x][y] == field or self.gameBoard[x + 1][
+                    y] == field or self.gameBoard[x][
+                    y - 1] == field or self.gameBoard[x][y + 1] == field or \
+                        self.gameBoard[x + 1][y - 1] == field or \
                         self.gameBoard[x + 1][y + 1] == field:
                     return False
                 else:
                     return True
-        elif x == 9:
+        elif x == self.N - 1:
             if y == 0:
-                if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x][
+                if self.gameBoard[x][y] == field or self.gameBoard[x - 1][
+                    y] == field or self.gameBoard[x][
                     y + 1] == field or self.gameBoard[x - 1][y + 1] == field:
                     return False
                 else:
                     return True
-            elif y == 9:
-                if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x][
+            elif y == self.N - 1:
+                if self.gameBoard[x][y] == field or self.gameBoard[x - 1][
+                    y] == field or self.gameBoard[x][
                     y - 1] == field or self.gameBoard[x - 1][y - 1] == field:
                     return False
                 else:
                     return True
             else:
-                if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x][
-                    y - 1] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or \
+                if self.gameBoard[x][y] == field or self.gameBoard[x - 1][
+                    y] == field or self.gameBoard[x][
+                    y - 1] == field or self.gameBoard[x][y + 1] == field or \
+                        self.gameBoard[x - 1][y + 1] == field or \
                         self.gameBoard[x - 1][y - 1] == field:
                     return False
                 else:
                     return True
         elif y == 0:
-            if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x + 1][
-                y] == field or self.gameBoard[x][y + 1] == field or self.gameBoard[x - 1][y + 1] == field or \
+            if self.gameBoard[x][y] == field or self.gameBoard[x - 1][
+                y] == field or self.gameBoard[x + 1][
+                y] == field or self.gameBoard[x][y + 1] == field or \
+                    self.gameBoard[x - 1][y + 1] == field or \
                     self.gameBoard[x + 1][y + 1] == field:
                 return False
             else:
                 return True
-        elif y == 9:
-            if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x + 1][
-                y] == field or self.gameBoard[x - 1][y - 1] == field or self.gameBoard[x][y] == field or \
-                    self.gameBoard[x][y - 1] == field or self.gameBoard[x + 1][y - 1] == field:
+        elif y == self.N - 1:
+            if self.gameBoard[x][y] == field or self.gameBoard[x - 1][
+                y] == field or self.gameBoard[x + 1][
+                y] == field or self.gameBoard[x - 1][y - 1] == field or \
+                    self.gameBoard[x][y] == field or \
+                    self.gameBoard[x][y - 1] == field or self.gameBoard[x + 1][
+                y - 1] == field:
                 return False
             else:
                 return True
         else:  # 9 pol srodek i 8 dookola
-            if self.gameBoard[x][y] == field or self.gameBoard[x - 1][y] == field or self.gameBoard[x + 1][
-                y] == field or self.gameBoard[x][y - 1] == field or self.gameBoard[x][y + 1] == field or \
-                    self.gameBoard[x - 1][y - 1] == field or self.gameBoard[x + 1][y + 1] == field or \
-                    self.gameBoard[x - 1][y + 1] == field or self.gameBoard[x + 1][y - 1] == field:
+            if self.gameBoard[x][y] == field or self.gameBoard[x - 1][
+                y] == field or self.gameBoard[x + 1][
+                y] == field or self.gameBoard[x][y - 1] == field or \
+                    self.gameBoard[x][y + 1] == field or \
+                    self.gameBoard[x - 1][y - 1] == field or \
+                    self.gameBoard[x + 1][y + 1] == field or \
+                    self.gameBoard[x - 1][y + 1] == field or \
+                    self.gameBoard[x + 1][y - 1] == field:
                 return False
             else:
                 return True
@@ -269,45 +287,51 @@ class Board:
             if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
-        if x == 9 and y == 0:
+        if x == self.N - 1 and y == 0:
             if self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
-        if x == 9 and y == 9:
+        if x == self.N - 1 and y == self.N - 1:
             if self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y - 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
-        if x == 0 and y == 9:
+        if x == 0 and y == self.N - 1:
             if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x][y - 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
         # krawedzie bez naroznikow
-        if x > 0 and x < 9 and y == 0:
-            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y + 1] == 1:
+        if x > 0 and x < self.N - 1 and y == 0:
+            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][
+                y] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
-        if x > 0 and x < 9 and y == 9:
-            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y - 1] == 1:
+        if x > 0 and x < self.N - 1 and y == self.N - 1:
+            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][
+                y] == 1 or self.gameBoard[x][y - 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
-        if y > 0 and y < 9 and x == 0:
-            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x][y - 1] == 1 or self.gameBoard[x][y + 1] == 1:
+        if y > 0 and y < self.N - 1 and x == 0:
+            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x][
+                y - 1] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
 
-        if y > 0 and y < 9 and x == 9:
-            if self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y - 1] == 1 or self.gameBoard[x][y + 1] == 1:
+        if y > 0 and y < self.N - 1 and x == self.N - 1:
+            if self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][
+                y - 1] == 1 or self.gameBoard[x][y + 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
         # srodek
-        if x > 0 and x < 9 and y > 0 and y < 9:
-            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][y] == 1 or self.gameBoard[x][y + 1] == 1 or \
+        if x > 0 and x < self.N - 1 and y > 0 and y < self.N - 1:
+            if self.gameBoard[x + 1][y] == 1 or self.gameBoard[x - 1][
+                y] == 1 or self.gameBoard[x][y + 1] == 1 or \
                     self.gameBoard[x][y - 1] == 1:
                 self.gameBoard[x][y] = 3
                 return False
         # sprawddzic czy ma kontakt z trafionym zeby znalezc gdy juz zatopilem
 
-        # sprawdzam czy ma kontakt z trafionym, jak ma kontakt to od nowa dla tego pola sprawdzam
+        # sprawdzam czy ma kontakt z trafionym, jak ma kontakt to od nowa
+        # dla tego pola sprawdzam
         # narozniki
         if x == 0 and y == 0:
             if self.gameBoard[x + 1][y] == 3:
@@ -319,7 +343,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-        if x == 9 and y == 0:
+        if x == self.N - 1 and y == 0:
             if self.gameBoard[x - 1][y] == 3:
                 if not self.checkIfSunk(x - 1, y):
                     self.gameBoard[x][y] = 3
@@ -330,7 +354,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-        if x == 9 and y == 9:
+        if x == self.N - 1 and y == self.N - 1:
             if self.gameBoard[x - 1][y] == 3:
                 if not self.checkIfSunk(x - 1, y):
                     self.gameBoard[x][y] = 3
@@ -341,7 +365,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-        if x == 0 and y == 9:
+        if x == 0 and y == self.N - 1:
             if self.gameBoard[x + 1][y] == 3:
                 if not self.checkIfSunk(x + 1, y):
                     self.gameBoard[x][y] = 3
@@ -352,7 +376,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
         # krawedzie bez naroznikow
-        if x > 0 and x < 9 and y == 0:
+        if x > 0 and x < self.N - 1 and y == 0:
             if self.gameBoard[x + 1][y] == 3:
                 if not self.checkIfSunk(x + 1, y):
                     self.gameBoard[x][y] = 3
@@ -368,7 +392,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-        if x > 0 and x < 9 and y == 9:
+        if x > 0 and x < self.N - 1 and y == self.N - 1:
             if self.gameBoard[x + 1][y] == 3:
                 if not self.checkIfSunk(x + 1, y):
                     self.gameBoard[x][y] = 3
@@ -384,7 +408,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-        if y > 0 and y < 9 and x == 0:
+        if y > 0 and y < self.N - 1 and x == 0:
             if self.gameBoard[x + 1][y] == 3:
                 if not self.checkIfSunk(x + 1, y):
                     self.gameBoard[x][y] = 3
@@ -395,7 +419,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
 
-        if y > 0 and y < 9 and x == 9:
+        if y > 0 and y < self.N - 1 and x == self.N - 1:
             if self.gameBoard[x - 1][y] == 3:
                 if not self.checkIfSunk(x - 1, y):
                     self.gameBoard[x][y] = 3
@@ -411,7 +435,7 @@ class Board:
                     self.gameBoard[x][y] = 3
                     return False
         # srodek
-        if x > 0 and x < 9 and y > 0 and y < 9:
+        if x > 0 and x < self.N - 1 and y > 0 and y < self.N - 1:
             if self.gameBoard[x + 1][y] == 3:
                 if not self.checkIfSunk(x + 1, y):
                     self.gameBoard[x][y] = 3

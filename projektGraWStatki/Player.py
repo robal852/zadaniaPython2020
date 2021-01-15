@@ -28,7 +28,8 @@ class Player:
 
         if not self.isHuman:
             print("Ruch komputera")
-            # Tu Mmge opoznic ruchy komputera zeby widziec co sie dzieje np przy pojedynku komputer vs komputer
+            # Tu Mmge opoznic ruchy komputera zeby widziec co sie dzieje np
+            # przy pojedynku komputer vs komputer
             time.sleep(1)
 
         success = False
@@ -41,7 +42,8 @@ class Player:
 
             # czesc komputera
             else:
-                alreadyHitted = []  # tutaj sobie zapisze gdzie juz trafil, a jeszcze nie zatopil
+                alreadyHitted = []  # tutaj sobie zapisze gdzie juz trafil,
+                # a jeszcze nie zatopil
                 for i in range(0, 10):
                     for j in range(0, 10):
                         if opponentBoard.gameBoard[i][j] == 3:
@@ -50,9 +52,13 @@ class Player:
                 if len(alreadyHitted) == 1:
                     X = alreadyHitted[0][0]
                     Y = alreadyHitted[0][1]
-                    while opponentBoard.gameBoard[X][Y] != 0 and opponentBoard.gameBoard[X][
-                        Y] != 1:  # nie chce strzelac tam gdzie juz strzelalem - zostaje woda albo statek
-                        rand = random.randint(0, 3)  # jedno z 4 obok trafionego: gora, dol, prawo, lewo
+                    while opponentBoard.gameBoard[X][Y] != 0 and \
+                            opponentBoard.gameBoard[X][
+                                Y] != 1:  # nie chce strzelac tam gdzie juz
+                        # strzelalem - zostaje woda albo statek
+                        rand = random.randint(0,
+                                              3)  # jedno z 4 obok
+                        # trafionego: gora, dol, prawo, lewo
                         X = alreadyHitted[0][0]
                         Y = alreadyHitted[0][1]
                         if rand == 0:
@@ -79,9 +85,11 @@ class Player:
                 elif len(alreadyHitted) > 1:  # wykryc kierunek
                     X = alreadyHitted[0][0]
                     Y = alreadyHitted[0][1]
-                    while opponentBoard.gameBoard[X][Y] != 0 and opponentBoard.gameBoard[X][Y] != 1:
+                    while opponentBoard.gameBoard[X][Y] != 0 and \
+                            opponentBoard.gameBoard[X][Y] != 1:
                         rand = random.randint(0, 1)
-                        if alreadyHitted[0][0] == alreadyHitted[1][0]:  # X taki sam wiec zmieniam tylko Y
+                        if alreadyHitted[0][0] == alreadyHitted[1][
+                            0]:  # X taki sam wiec zmieniam tylko Y
                             X = alreadyHitted[0][0]
                             maxY = alreadyHitted[0][1]
                             minY = alreadyHitted[0][1]
@@ -124,21 +132,26 @@ class Player:
                     Y = random.randint(0, 9)
 
             # komputer nie strzela obok zatopionego!
-            if not self.isHuman and not opponentBoard.isFieldAvailable(X, Y, field=4):
+            if not self.isHuman and not opponentBoard.isFieldAvailable(X, Y,
+                                                                       field=4):
                 success = False
             else:
-                # czesc wspolna czlowiek-komputer sprawdzam czy poprawny strzal i zaznaczam na planszy
-                if opponentBoard.gameBoard[X][Y] == 2 or opponentBoard.gameBoard[X][Y] == 3 or \
+                # czesc wspolna czlowiek-komputer sprawdzam czy poprawny
+                # strzal i zaznaczam na planszy
+                if opponentBoard.gameBoard[X][Y] == 2 or \
+                        opponentBoard.gameBoard[X][Y] == 3 or \
                         opponentBoard.gameBoard[X][Y] == 4:
                     success = False
-                elif opponentBoard.gameBoard[X][Y] == 0 or opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
+                elif opponentBoard.gameBoard[X][Y] == 0 or \
+                        opponentBoard.gameBoard[X][Y] == 1:  # woda albo statek
                     success = True
                     if opponentBoard.gameBoard[X][Y] == 0:
                         opponentBoard.gameBoard[X][Y] = 2  # pudlo
                         return False
                     elif opponentBoard.gameBoard[X][Y] == 1:
                         opponentBoard.gameBoard[X][Y] = 3  # trafiony
-                        if opponentBoard.checkIfSunk(X, Y):  # trafiony-zatopiony
+                        if opponentBoard.checkIfSunk(X,
+                                                     Y):  # trafiony-zatopiony
                             opponent.aliveShips -= 1
                         return True
                 else:
